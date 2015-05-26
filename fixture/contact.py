@@ -184,7 +184,7 @@ class ContactHelper:
 
     def edit_contact_by_number(self, contact, i):
         wd = self.app.wd
-        # submit first contact edit
+        # submit i-th contact edit
         wd.find_element_by_xpath("//tr[" + str(i+1) + "]/td[8]/a/img").click()
         # edit contact form
         wd.find_element_by_name("firstname").click()
