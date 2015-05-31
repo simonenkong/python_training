@@ -50,6 +50,7 @@ class ContactHelper:
 
     def add_new(self, contact):
         wd = self.app.wd
+        self.go_to_contact_page()
         # init new contact creation
         wd.find_element_by_link_text("add new").click()
         self.fill_contact_form(contact)
@@ -67,14 +68,21 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
+        self.go_to_contact_page()
         self.select_first_contact()
         # submit group deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # close popup
         wd.switch_to_alert().accept()
 
+    def go_to_contact_page(self):
+        wd = self.app.wd
+        if not len(wd.find_elements_by_xpath("//input[@value='Send e-Mail']")) > 0:
+            wd.find_element_by_link_text("home").click()
+
     def delete_contact_by_number(self, i):
         wd = self.app.wd
+        self.go_to_contact_page()
         # find i-th contact
         wd.find_element_by_xpath("//tr[" + str(i+1) + "]/td[1]/input").click()
         # submit contact deletion
@@ -84,6 +92,7 @@ class ContactHelper:
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
+        self.go_to_contact_page()
         # submit first contact edit
         wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
         self.change_field_value("firstname", contact.firstname)
@@ -124,6 +133,7 @@ class ContactHelper:
 
     def edit_contact_by_number(self, contact, i):
         wd = self.app.wd
+        self.go_to_contact_page()
         # submit i-th contact edit
         wd.find_element_by_xpath("//tr[" + str(i+1) + "]/td[8]/a/img").click()
         self.change_field_value("firstname", contact.firstname)
