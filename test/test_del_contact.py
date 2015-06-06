@@ -9,6 +9,7 @@ def test_delete_first_contact(app):
 
 
 def test_delete_contact_by_number(app, i=2):
-    while app.contact.count() < i:
-        app.contact.add_new(Contact(firstname="not enough contacts"))
+    if app.contact.count() < i:
+        for j in range(i - app.contact.count()):
+            app.contact.add_new(Contact(firstname="not enough contacts"))
     app.contact.delete_contact_by_number(i)

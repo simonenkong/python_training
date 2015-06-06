@@ -22,7 +22,8 @@ def test_modify_group_header(app):
 
 
 def test_edit_ith_group(app, i=2):
-    while app.group.count() < i:
-        app.group.create(Group(name="not enough groups"))
+    if app.group.count() < i:
+        for j in range(i - app.group.count()):
+            app.group.create(Group(name="not enough groups"))
     app.group.edit_group_by_number(Group(name="edited_name", header="edited_header", footer="edited_footer"), i)
 

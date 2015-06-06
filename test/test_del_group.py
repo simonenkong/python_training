@@ -8,6 +8,7 @@ def test_delete_first_group(app):
 
 
 def test_delete_ith_group(app, i=2):
-    while app.group.count() < i:
-        app.group.create(Group(name="not enough groups"))
+    if app.group.count() < i:
+        for j in range(i - app.group.count()):
+            app.group.create(Group(name="not enough groups"))
     app.group.delete_group_by_number(i)
