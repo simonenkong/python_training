@@ -10,8 +10,8 @@ def test_edit_first_group(app):
     group = Group(name="edited_name", header="edited_header", footer="edited_footer")
     group.id = old_groups[0].id
     app.group.edit_first_group(group)
+    assert len(old_groups) == app.group.count()
     new_groups = app.group.get_groups_list()
-    assert len(old_groups) == len(new_groups)
     old_groups[0] = group
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
 
@@ -45,7 +45,7 @@ def test_edit_ith_group(app, i=2):
     group = Group(name="edited_name", header="edited_header", footer="edited_footer")
     group.id = old_groups[i-1].id
     app.group.edit_group_by_number(Group(name="edited_name", header="edited_header", footer="edited_footer"), i)
+    assert len(old_groups) == app.group.count()
     new_groups = app.group.get_groups_list()
-    assert len(old_groups) == len(new_groups)
     old_groups[i-1] = group
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
