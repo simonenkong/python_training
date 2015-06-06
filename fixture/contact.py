@@ -95,38 +95,7 @@ class ContactHelper:
         self.go_to_contact_page()
         # submit first contact edit
         wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
-        self.change_field_value("firstname", contact.firstname)
-        self.change_field_value("middlename", contact.middlename)
-        self.change_field_value("lastname", contact.lastname)
-        self.change_field_value("nickname", contact.nickname)
-        self.change_field_value("title", contact.title)
-        self.change_field_value("company", contact.company)
-        self.change_field_value("address", contact.address)
-        self.change_field_value("home", contact.home)
-        self.change_field_value("mobile", contact.mobile)
-        self.change_field_value("work", contact.work)
-        self.change_field_value("fax", contact.fax)
-        self.change_field_value("email", contact.email)
-        self.change_field_value("email2", contact.email2)
-        self.change_field_value("email3", contact.email3)
-        self.change_field_value("homepage", contact.homepage)
-
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[25]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[25]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").click()
-
-        self.change_field_value("byear", contact.byear)
-
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[17]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[17]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[10]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[10]").click()
-
-        self.change_field_value("ayear", contact.ayear)
-        self.change_field_value("address2", contact.address2)
-        self.change_field_value("phone2", contact.phone2)
-        self.change_field_value("notes", contact.notes)
+        self.fill_contact_form(contact)
         # submit contact edit
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
@@ -136,38 +105,7 @@ class ContactHelper:
         self.go_to_contact_page()
         # submit i-th contact edit
         wd.find_element_by_xpath("//tr[" + str(i+1) + "]/td[8]/a/img").click()
-        self.change_field_value("firstname", contact.firstname)
-        self.change_field_value("middlename", contact.middlename)
-        self.change_field_value("lastname", contact.lastname)
-        self.change_field_value("nickname", contact.nickname)
-        self.change_field_value("title", contact.title)
-        self.change_field_value("company", contact.company)
-        self.change_field_value("address", contact.address)
-        self.change_field_value("home", contact.home)
-        self.change_field_value("mobile", contact.mobile)
-        self.change_field_value("work", contact.work)
-        self.change_field_value("fax", contact.fax)
-        self.change_field_value("email", contact.email)
-        self.change_field_value("email2", contact.email2)
-        self.change_field_value("email3", contact.email3)
-        self.change_field_value("homepage", contact.homepage)
-
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[25]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[25]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").click()
-
-        self.change_field_value("byear", contact.byear)
-
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[17]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[17]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[10]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[10]").click()
-
-        self.change_field_value("ayear", contact.ayear)
-        self.change_field_value("address2", contact.address2)
-        self.change_field_value("phone2", contact.phone2)
-        self.change_field_value("notes", contact.notes)
+        self.fill_contact_form(contact)
         # submit contact edit
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
