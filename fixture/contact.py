@@ -60,13 +60,21 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
+    def go_to_contact_page(self):
+        wd = self.app.wd
+        if not len(wd.find_elements_by_xpath("//input[@value='Send e-Mail']")) > 0:
+            wd.find_element_by_link_text("home").click()
+
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
 
     def select_first_contact(self):
+        self.select_contact_by_index(0)
+
+    def select_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -78,12 +86,7 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
-    def go_to_contact_page(self):
-        wd = self.app.wd
-        if not len(wd.find_elements_by_xpath("//input[@value='Send e-Mail']")) > 0:
-            wd.find_element_by_link_text("home").click()
-
-    def delete_contact_by_number(self, i):
+    def delete_contact_by_index(self, i):
         wd = self.app.wd
         self.go_to_contact_page()
         # find i-th contact
@@ -105,7 +108,7 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
-    def edit_contact_by_number(self, contact, i):
+    def edit_contact_by_index(self, contact, i):
         wd = self.app.wd
         self.go_to_contact_page()
         # submit i-th contact edit
