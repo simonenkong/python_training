@@ -33,17 +33,17 @@ class ContactHelper:
         self.change_field_value("email3", contact.email3)
         self.change_field_value("homepage", contact.homepage)
 
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[25]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[25]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").click()
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[" + str(contact.bday) + "]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[" + str(contact.bday) + "]").click()
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[" + str(contact.bmonth) + "]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[" + str(contact.bmonth) + "]").click()
 
         self.change_field_value("byear", contact.byear)
 
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[17]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[17]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[10]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[10]").click()
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[" + str(contact.aday) + "]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[" + str(contact.aday) + "]").click()
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[" + str(contact.amonth) + "]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[" + str(contact.amonth) + "]").click()
 
         self.change_field_value("ayear", contact.ayear)
         self.change_field_value("address2", contact.address2)
