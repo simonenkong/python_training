@@ -98,6 +98,17 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.go_to_contact_page()
+        # find i-th contact
+        wd.find_element_by_css_selector("input[id='%s']" % id).click()
+        # submit contact deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        # close popup
+        wd.switch_to_alert().accept()
+        self.contact_cache = None
+
     def edit_first_contact(self, contact):
         wd = self.app.wd
         self.go_to_contact_page()
@@ -114,6 +125,17 @@ class ContactHelper:
         self.go_to_contact_page()
         # submit i-th contact edit
         wd.find_element_by_xpath("//tr[" + str(i+1) + "]/td[8]/a/img").click()
+        self.fill_contact_form(contact)
+        # submit contact edit
+        wd.find_element_by_name("update").click()
+        self.return_to_home_page()
+        self.contact_cache = None
+
+    def edit_contact_by_id(self, contact, id):
+        wd = self.app.wd
+        self.go_to_contact_page()
+        # submit i-th contact edit
+        wd.find_element_by_xpath("//a[@href='edit.php?id=%s']/img" % id).click()
         self.fill_contact_form(contact)
         # submit contact edit
         wd.find_element_by_name("update").click()

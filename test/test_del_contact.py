@@ -1,27 +1,18 @@
 __author__ = 'Nataly'
 from model.contact import Contact
-from random import randrange
+import random
 
 
-def test_delete_some_contact(app):
-    if app.contact.count() == 0:
+def test_delete_some_contact(app, db, check_ui):
+    if len(db.get_contact_list()) == 0:
         app.contact.add_new(Contact(firstname="not enough contacts"))
-    old_contacts = app.contact.get_contacts_list()
-    index = randrange(len(old_contacts))
-    app.contact.delete_contact_by_index(index)
+    old_contacts = db.get_contact_list()
+    contact = random.choice(old_contacts)
+    app.contact.delete_contact_by_id(contact.id)
     assert len(old_contacts) - 1 == app.contact.count()
-    new_contacts = app.contact.get_contacts_list()
-    old_contacts[index-1:index] = []
+    new_contacts = db.get_contact_list()
+    old_contacts.remove(contact)
     assert old_contacts == new_contacts
+    if check_ui:
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contacts_list(), key=Contact.id_or_max)
 
-
-def test_delete_contact_by_number(app, i=2):
-    if app.contact.count() < i:
-        for j in range(i - app.contact.count()):
-            app.contact.add_new(Contact(firstname="not enough contacts"))
-    old_contacts = app.contact.get_contacts_list()
-    app.contact.delete_contact_by_index(i)
-    assert len(old_contacts) - 1 == app.contact.count()
-    new_contacts = app.contact.get_contacts_list()
-    old_contacts[i-1:i] = []
-    assert old_contacts == new_contacts
