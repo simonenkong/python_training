@@ -1,18 +1,18 @@
 __author__ = 'Nataly'
 
 import re
-from random import randrange
+from model.contact import Contact
 
 
-def test_all_fields_of_some_contact_on_home_page(app):
-    index = randrange(app.contact.count())
-    contact_from_home_page = app.contact.get_contacts_list()[index]
-    contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
-    assert contact_from_home_page.firstname == contact_from_edit_page.firstname
-    assert contact_from_home_page.lastname == contact_from_edit_page.lastname
-    assert contact_from_home_page.address == contact_from_edit_page.address
-    assert contact_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(contact_from_edit_page)
-    assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
+def test_all_fields_of_all_contacts_on_home_page(app, db):
+    contacts_from_home_page = sorted(app.contact.get_contacts_list(), key=Contact.id_or_max)
+    contacts_from_db = sorted(db.get_contact_list(), key=Contact.id_or_max)
+    assert contacts_from_home_page == contacts_from_db  # checks ids, firstnames and lastnames
+
+    for n in range(len(contacts_from_home_page)):
+        assert contacts_from_home_page[n].address == contacts_from_db[n].address
+        assert contacts_from_home_page[n].all_emails_from_home_page == merge_emails_like_on_home_page(contacts_from_db[n])
+        assert contacts_from_home_page[n].all_phones_from_home_page == merge_phones_like_on_home_page(contacts_from_db[n])
 
 
 def clear(s):
@@ -20,10 +20,11 @@ def clear(s):
 
 
 def merge_phones_like_on_home_page(contact):
-    return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear(x),
-                                filter(lambda x: x is not None, 
-                                       [contact.home, contact.mobile, contact.work, contact.phone2]))))
+        return "\n".join(filter(lambda x: x != "",
+                                map(lambda x: clear(x),
+                                    filter(lambda x: x is not None,
+                                    [contact.home, contact.mobile, contact.work, contact.phone2]))))
+
 
 def merge_emails_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
