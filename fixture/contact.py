@@ -61,6 +61,24 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
+    def add_contact_to_group(self, contact, group):
+        wd = self.app.wd
+        self.go_to_contact_page()
+        self.select_contact_by_id(contact.id)
+        wd.find_element_by_xpath("//select[@name='to_group']/option[. = '%s']" % group.name).click()
+        wd.find_element_by_name("add").click()
+        wd.find_element_by_link_text("home").click()
+        self.contact_cache = None
+
+    def delete_contact_from_group(self, contact, group):
+        wd = self.app.wd
+        self.go_to_contact_page()
+        wd.find_element_by_xpath("//select[@name='group']/option[. = '%s']" % group.name).click()
+        self.select_contact_by_id(contact.id)
+        wd.find_element_by_name("remove").click()
+        wd.find_element_by_link_text("home").click()
+        self.contact_cache = None
+
     def go_to_contact_page(self):
         wd = self.app.wd
         if not len(wd.find_elements_by_xpath("//input[@value='Send e-Mail']")) > 0:
@@ -98,11 +116,14 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[id='%s']" % id).click()
+
     def delete_contact_by_id(self, id):
         wd = self.app.wd
         self.go_to_contact_page()
-        # find i-th contact
-        wd.find_element_by_css_selector("input[id='%s']" % id).click()
+        self.select_contact_by_id(id)
         # submit contact deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # close popup
