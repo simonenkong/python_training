@@ -1,0 +1,39 @@
+<ns0:test-suite xmlns:ns0="urn:model.allure.qatools.yandex.ru" start="1437317297721" stop="1437317325908">
+  <name>bdd.group_scenario</name>
+  <test-cases>
+    <test-case start="1437317297721" status="passed" stop="1437317318479">
+      <name>test_add_group[name1-header1-footer1]</name>
+      <description>groups.feature: Add new group</description>
+      <labels>
+        <label name="severity" value="normal"/>
+        <label name="thread" value="2192-MainThread"/>
+        <label name="host" value="Simon"/>
+      </labels>
+      <attachments/>
+      <steps/>
+    </test-case>
+    <test-case start="1437317318480" status="passed" stop="1437317322972">
+      <name>test_add_group[name2-header2-footer2]</name>
+      <description>groups.feature: Add new group</description>
+      <labels>
+        <label name="severity" value="normal"/>
+        <label name="thread" value="2192-MainThread"/>
+        <label name="host" value="Simon"/>
+      </labels>
+      <attachments/>
+      <steps/>
+    </test-case>
+    <test-case start="1437317322973" status="passed" stop="1437317325006">
+      <name>test_delete_group</name>
+      <description>groups.feature: Delete a group</description>
+      <labels>
+        <label name="severity" value="normal"/>
+        <label name="thread" value="2192-MainThread"/>
+        <label name="host" value="Simon"/>
+      </labels>
+      <attachments/>
+      <steps/>
+    </test-case>
+  </test-cases>
+  <labels/>
+</ns0:test-suite>
